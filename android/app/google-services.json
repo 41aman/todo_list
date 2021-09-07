@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "371945700230",
+    "project_id": "todo-list-f7159",
+    "storage_bucket": "todo-list-f7159.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371945700230:android:b1281e9915c6496a0a4a07",
+        "android_client_info": {
+          "package_name": "com.amanpaleja.todo_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371945700230-cr6o4298tfvrdh1amjleqp6s06senc5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsUmv6uNcsKeQ2MVTM-c0gK2fWGyyVLJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371945700230-cr6o4298tfvrdh1amjleqp6s06senc5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
