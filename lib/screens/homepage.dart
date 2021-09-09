@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
         onPressed: () => showDialog(
           context: context,
-          builder: (BuildContext context) => TodoDialog(toAdd: true),
+          builder: (BuildContext context) => TodoDialog(toAdd: true, todo: null,),
           barrierDismissible: true,
         ),
       ),

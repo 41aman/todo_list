@@ -80,4 +80,23 @@ class FirestoreUtils {
         .then((value) => print("update successful"))
         .catchError((error) => print(error));
   }
+
+  static Future<void> removeTodo(String id) {
+    return _todos
+        .doc(id)
+        .delete()
+        .then((value) => print('delete successful'))
+        .catchError((error) => print(error));
+  }
+
+  static Future<void> editTodo(Todo todo) {
+    return _todos
+        .doc(todo.id)
+        .update({
+          'title': todo.title,
+          'desc': todo.desc,
+        })
+        .then((value) => print('edit successful'))
+        .catchError((error) => print(error));
+  }
 }
