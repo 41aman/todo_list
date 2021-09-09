@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo_list/models/todo.dart';
 import 'package:todo_list/models/todowidget.dart';
 
@@ -29,7 +30,16 @@ class FirestoreUtils {
             return Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting)
-            return Text('Loading...');
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: SpinKitRing(
+                  lineWidth: 5.0,
+                  color: Colors.blueAccent,
+                  size: 30,
+                ),
+              ),
+            );
           final List<Todo> todoListAll = [];
           snapshot.data!.docs.forEach((element) {
             Todo temp = Todo(
