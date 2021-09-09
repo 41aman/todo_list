@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/firestore_utils/firestore_utils.dart';
+import 'package:todo_list/screens/addtodo.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -43,7 +44,11 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue.shade400,
         child: Icon(Icons.add),
-        onPressed: FirestoreUtils.addTodo,
+        onPressed: () => showDialog(
+          context: context,
+          builder: (BuildContext context) => TodoDialog(toAdd: true),
+          barrierDismissible: true,
+        ),
       ),
     );
   }
