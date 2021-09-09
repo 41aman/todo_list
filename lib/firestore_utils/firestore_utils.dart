@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/todo.dart';
+import 'package:todo_list/models/todowidget.dart';
 
 class FirestoreUtils {
   static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -20,24 +21,53 @@ class FirestoreUtils {
         .catchError((error) => print('failure'));
   }
 
-  static Widget buildList(BuildContext context) {
+  static Widget buildList(BuildContext context, bool completed) {
     return StreamBuilder<QuerySnapshot>(
         stream: collectionStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
           }
-          if(snapshot.connectionState == ConnectionState.waiting)
+          if (snapshot.connectionState == ConnectionState.waiting)
             return Text('Loading');
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot documentSnapshot){
-              Map<String, dynamic> data = documentSnapshot.data()! as Map<String, dynamic>;
-              return ListTile(
-                title: Text(data['title']),
-                subtitle: Text(data['desc']),
-              );
-            }).toList(),
-          );
+          final List<Todo> todoListAll = [];
+          snapshot.data!.docs.forEach((element) {
+            Todo temp = Todo(
+              createdTime:
+                  DateTime.parse(element['created_time'].toDate().toString()),
+              title: element['title'],
+              completed: element['completed'],
+              desc: element['desc'],
+            );
+            todoListAll.add(temp);
+          });
+          List<Todo> todosList;
+          if (completed)
+            todosList =
+                todoListAll.where((todo) => todo.completed == false).toList();
+          else
+            todosList =
+                todoListAll.where((todo) => todo.completed == true).toList();
+          return todosList.isEmpty
+              ? Center(
+                  child: Text(
+                    'No To-dos',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )
+              : ListView.separated(
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final todo = todosList[index];
+                    return TodoWidget(todo: todo);
+                  },
+                  separatorBuilder: (context, index) => Container(
+                    height: 5,
+                  ),
+                  itemCount: todosList.length,
+                );
         });
   }
 }
