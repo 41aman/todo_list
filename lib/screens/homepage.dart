@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/firestore_utils/firestore_utils.dart';
 import 'package:todo_list/screens/addtodo.dart';
+import 'package:todo_list/screens/todolist.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   final tabs = [
-    Container(),
+    TodoList(),
     Container(),
   ];
 
