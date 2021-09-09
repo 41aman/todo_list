@@ -10,12 +10,15 @@ class FirestoreUtils {
       _firebaseFirestore.collection('todos').snapshots();
 
   static Future<void> addTodo(Todo todo, BuildContext context) {
-    return _todos.add({
-      'created_time': todo.createdTime,
-      'title': todo.title,
-      'desc': todo.desc,
-      'completed': todo.completed,
-    }).then((value){}).catchError((error) => print(error));
+    return _todos
+        .add({
+          'created_time': todo.createdTime,
+          'title': todo.title,
+          'desc': todo.desc,
+          'completed': todo.completed,
+        })
+        .then((value) {})
+        .catchError((error) => print(error));
   }
 
   static Widget buildList(BuildContext context, bool completed) {
@@ -39,6 +42,7 @@ class FirestoreUtils {
             );
             todoListAll.add(temp);
           });
+          todoListAll.sort((todo1, todo2) => todo1.createdTime.compareTo(todo2.createdTime));
           List<Todo> todosList;
           if (completed)
             todosList =
