@@ -29,7 +29,7 @@ class FirestoreUtils {
             return Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting)
-            return Text('Loading');
+            return Text('Loading...');
           final List<Todo> todoListAll = [];
           snapshot.data!.docs.forEach((element) {
             Todo temp = Todo(
@@ -38,6 +38,7 @@ class FirestoreUtils {
               title: element['title'],
               completed: element['completed'],
               desc: element['desc'],
+              id: element.id,
             );
             todoListAll.add(temp);
           });
@@ -51,7 +52,7 @@ class FirestoreUtils {
           return todosList.isEmpty
               ? Center(
                   child: Text(
-                    'No To-dos',
+                    completed ? 'No To-dos' : 'No completed To-dos',
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -69,5 +70,14 @@ class FirestoreUtils {
                   itemCount: todosList.length,
                 );
         });
+  }
+
+  static Future<void> toggleTodo(Todo todo) {
+    bool completed = todo.completed;
+    return _todos
+        .doc(todo.id)
+        .update({'completed': !completed})
+        .then((value) => print("update successful"))
+        .catchError((error) => print(error));
   }
 }

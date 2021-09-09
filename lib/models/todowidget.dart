@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo_list/firestore_utils/firestore_utils.dart';
 import 'package:todo_list/models/todo.dart';
 
 class TodoWidget extends StatelessWidget {
@@ -40,7 +41,9 @@ class TodoWidget extends StatelessWidget {
                 activeColor: Theme.of(context).primaryColor,
                 checkColor: Colors.white,
                 value: todo.completed,
-                onChanged: (_) {},
+                onChanged: (_) {
+                  FirestoreUtils.toggleTodo(todo);
+                },
               ),
               Expanded(
                   child: Column(
