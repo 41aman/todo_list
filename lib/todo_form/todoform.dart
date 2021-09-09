@@ -28,11 +28,25 @@ class TodoFormWidget extends StatelessWidget {
                 if (title!.isEmpty) return 'The title cannot be empty';
                 return null;
               },
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Title',
+                labelStyle: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
             ),
             TextFormField(
               maxLines: 4,
               initialValue: desc,
               onChanged: onChangedDesc,
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Description',
+                labelStyle: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -41,11 +55,11 @@ class TodoFormWidget extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  )),
                 ),
                 onPressed: onSavedTodo,
                 child: Text('Save'),
