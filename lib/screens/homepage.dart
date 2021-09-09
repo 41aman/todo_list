@@ -10,7 +10,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   final tabs = [
-    TodoList(completed: true,),
+    TodoList(
+      completed: true,
+    ),
     TodoList(completed: false),
   ];
 
@@ -45,7 +47,10 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
         onPressed: () => showDialog(
           context: context,
-          builder: (BuildContext context) => TodoDialog(toAdd: true, todo: null,),
+          builder: (BuildContext context) => TodoDialog(
+            toAdd: true,
+            todo: null,
+          ),
           barrierDismissible: true,
         ),
       ),

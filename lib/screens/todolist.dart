@@ -10,4 +10,3 @@ class TodoList extends StatelessWidget {
     return FirestoreUtils.buildList(context, completed);
   }
 }
-

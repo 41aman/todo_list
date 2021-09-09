@@ -13,10 +13,11 @@ class Todo {
     this.id = '',
   });
 
-  void setTitle(String title){
+  void setTitle(String title) {
     this.title = title;
   }
-  void setDescription(String desc){
+
+  void setDescription(String desc) {
     this.desc = desc;
   }
 }

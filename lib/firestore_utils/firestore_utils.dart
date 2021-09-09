@@ -42,7 +42,8 @@ class FirestoreUtils {
             );
             todoListAll.add(temp);
           });
-          todoListAll.sort((todo1, todo2) => todo1.createdTime.compareTo(todo2.createdTime));
+          todoListAll.sort(
+              (todo1, todo2) => todo1.createdTime.compareTo(todo2.createdTime));
           List<Todo> todosList;
           if (completed)
             todosList =
