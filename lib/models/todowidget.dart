@@ -30,7 +30,12 @@ class TodoWidget extends StatelessWidget {
           IconSlideAction(
             color: Colors.red,
             caption: 'Delete',
-            onTap: () => FirestoreUtils.removeTodo(todo.id),
+            onTap: () {
+              FirestoreUtils.removeTodo(todo.id);
+              final snackBar = SnackBar(content: Text('To-do deleted'));
+              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
             icon: Icons.delete,
           )
         ],
@@ -54,6 +59,12 @@ class TodoWidget extends StatelessWidget {
                 value: todo.completed,
                 onChanged: (_) {
                   FirestoreUtils.toggleTodo(todo);
+                  final snackBar = SnackBar(
+                      content: Text(!todo.completed
+                          ? 'To-do completed'
+                          : 'To-do marked incomplete'));
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
               Expanded(

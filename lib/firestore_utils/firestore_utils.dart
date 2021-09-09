@@ -9,16 +9,13 @@ class FirestoreUtils {
   static final Stream<QuerySnapshot> collectionStream =
       _firebaseFirestore.collection('todos').snapshots();
 
-  static Future<void> addTodo(Todo todo) {
-    return _todos
-        .add({
-          'created_time': todo.createdTime,
-          'title': todo.title,
-          'desc': todo.desc,
-          'completed': todo.completed,
-        })
-        .then((value) => print('added'))
-        .catchError((error) => print('failure'));
+  static Future<void> addTodo(Todo todo, BuildContext context) {
+    return _todos.add({
+      'created_time': todo.createdTime,
+      'title': todo.title,
+      'desc': todo.desc,
+      'completed': todo.completed,
+    }).then((value){}).catchError((error) => print(error));
   }
 
   static Widget buildList(BuildContext context, bool completed) {

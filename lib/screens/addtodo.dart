@@ -62,8 +62,11 @@ class _TodoDialogState extends State<TodoDialog> {
       return;
     }
     final todo = Todo(createdTime: DateTime.now(), title: title, desc: desc);
-    FirestoreUtils.addTodo(todo);
+    FirestoreUtils.addTodo(todo, context);
     Navigator.of(context).pop();
+    final snackBar = SnackBar(content: Text('To-do added'));
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void editTodo() {
@@ -73,5 +76,8 @@ class _TodoDialogState extends State<TodoDialog> {
     widget.todo!.setDescription(desc);
     FirestoreUtils.editTodo(widget.todo!);
     Navigator.of(context).pop();
+    final snackBar = SnackBar(content: Text('To-do edited'));
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
