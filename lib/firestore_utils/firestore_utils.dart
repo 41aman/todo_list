@@ -8,7 +8,7 @@ class FirestoreUtils {
   static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   static CollectionReference _todos = _firebaseFirestore.collection('todos');
   static final Stream<QuerySnapshot> collectionStream =
-      _firebaseFirestore.collection('todos').snapshots();
+      _firebaseFirestore.collection('todos').orderBy('created_time').snapshots();
 
   static Future<void> addTodo(Todo todo, BuildContext context) {
     return _todos
@@ -52,8 +52,6 @@ class FirestoreUtils {
             );
             todoListAll.add(temp);
           });
-          todoListAll.sort(
-              (todo1, todo2) => todo1.createdTime.compareTo(todo2.createdTime));
           List<Todo> todosList;
           if (completed)
             todosList =
