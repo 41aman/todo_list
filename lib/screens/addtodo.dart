@@ -61,7 +61,7 @@ class _TodoDialogState extends State<TodoDialog> {
       print(isValid);
       return;
     }
-    final todo = Todo(createdTime: DateTime.now(), title: title, desc: desc);
+    final todo = Todo(title: title, desc: desc);
     FirestoreUtils.addTodo(todo, context);
     Navigator.of(context).pop();
     final snackBar = SnackBar(content: Text('To-do added'));
