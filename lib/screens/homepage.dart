@@ -10,10 +10,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   final tabs = [
-    TodoList(
-      completed: true,
-    ),
     TodoList(completed: false),
+    TodoList(completed: true),
   ];
 
   @override

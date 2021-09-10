@@ -7,8 +7,13 @@ import 'package:todo_list/screens/todolist/todowidget.dart';
 class FirestoreUtils {
   static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   static CollectionReference _todos = _firebaseFirestore.collection('todos');
-  static final Stream<QuerySnapshot> collectionStream = _firebaseFirestore
+  static final Stream<QuerySnapshot> collectionStreamTodo = _firebaseFirestore
       .collection('todos')
+      .where('completed', isEqualTo: false)
+      .orderBy('created_time')
+      .snapshots();
+  static final Stream<QuerySnapshot> collectionStreamCompleted = _todos
+      .where('completed', isEqualTo: true)
       .orderBy('created_time')
       .snapshots();
 
@@ -26,10 +31,15 @@ class FirestoreUtils {
 
   static Widget buildList(BuildContext context, bool completed) {
     return StreamBuilder<QuerySnapshot>(
-        stream: collectionStream,
+        stream: completed ? collectionStreamCompleted : collectionStreamTodo,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return Text(
+              'Something went wrong',
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            );
           }
           if (snapshot.connectionState == ConnectionState.waiting)
             return Container(
@@ -42,7 +52,7 @@ class FirestoreUtils {
                 ),
               ),
             );
-          final List<Todo> todoListAll = [];
+          final List<Todo> todoList = [];
           snapshot.data!.docs.forEach((element) async {
             Todo temp = Todo(
               title: element['title'],
@@ -50,16 +60,9 @@ class FirestoreUtils {
               desc: element['desc'],
               id: element.id,
             );
-            todoListAll.add(temp);
+            todoList.add(temp);
           });
-          List<Todo> todosList;
-          if (completed)
-            todosList =
-                todoListAll.where((todo) => todo.completed == false).toList();
-          else
-            todosList =
-                todoListAll.where((todo) => todo.completed == true).toList();
-          return todosList.isEmpty
+          return todoList.isEmpty
               ? Center(
                   child: Text(
                     completed ? 'No To-dos' : 'No completed To-dos',
@@ -71,13 +74,13 @@ class FirestoreUtils {
               : ListView.separated(
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    final todo = todosList[index];
+                    final todo = todoList[index];
                     return TodoWidget(todo: todo);
                   },
                   separatorBuilder: (context, index) => Container(
                     height: 5,
                   ),
-                  itemCount: todosList.length,
+                  itemCount: todoList.length,
                 );
         });
   }
