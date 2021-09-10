@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/screens/addtodo.dart';
-import 'package:todo_list/screens/todolist.dart';
+import 'package:todo_list/screens/todolist/todolist.dart';
 
 class HomePage extends StatefulWidget {
   @override
