@@ -50,7 +50,7 @@ class FirestoreUtils {
               ),
             );
           final List<Todo> todoList = [];
-          snapshot.data!.docs.forEach((element) async {
+          snapshot.data!.docs.forEach((element) {
             Todo temp = Todo(
               title: element['title'],
               completed: element['completed'],
