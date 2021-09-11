@@ -44,10 +44,9 @@ class FirestoreUtils {
             return Container(
               color: Colors.white,
               child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                )
-              ),
+                  child: CircularProgressIndicator(
+                color: Colors.blue,
+              )),
             );
           final List<Todo> todoList = [];
           snapshot.data!.docs.forEach((element) {
