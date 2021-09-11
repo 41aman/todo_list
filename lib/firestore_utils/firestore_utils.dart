@@ -9,11 +9,11 @@ class FirestoreUtils {
   static final Stream<QuerySnapshot> collectionStreamTodo = _firebaseFirestore
       .collection('todos')
       .where('completed', isEqualTo: false)
-      .orderBy('created_time')
+      .orderBy('created_time', descending: true)
       .snapshots();
   static final Stream<QuerySnapshot> collectionStreamCompleted = _todos
       .where('completed', isEqualTo: true)
-      .orderBy('created_time')
+      .orderBy('created_time', descending: true)
       .snapshots();
 
   static Future<void> addTodo(Todo todo, BuildContext context) {
