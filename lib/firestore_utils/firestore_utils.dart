@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/todo.dart';
-import 'package:todo_list/screens/todolist/todowidget.dart';
+import 'package:todo_list/screens/todowidget.dart';
 
 class FirestoreUtils {
   static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
