@@ -6,8 +6,7 @@ import 'package:todo_list/screens/todolist/todowidget.dart';
 class FirestoreUtils {
   static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   static CollectionReference _todos = _firebaseFirestore.collection('todos');
-  static final Stream<QuerySnapshot> collectionStreamTodo = _firebaseFirestore
-      .collection('todos')
+  static final Stream<QuerySnapshot> collectionStreamTodo = _todos
       .where('completed', isEqualTo: false)
       .orderBy('created_time', descending: true)
       .snapshots();
@@ -16,7 +15,7 @@ class FirestoreUtils {
       .orderBy('created_time', descending: true)
       .snapshots();
 
-  static Future<void> addTodo(Todo todo, BuildContext context) {
+  static Future<void> addTodo(Todo todo) {
     return _todos
         .add({
           'created_time': FieldValue.serverTimestamp(),

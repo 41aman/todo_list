@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/firestore_utils/firestore_utils.dart';
+import 'package:todo_list/firestore_utils/paginated_view.dart';
 import 'package:todo_list/models/todo.dart';
 import 'package:todo_list/todo_form/todoform.dart';
 
@@ -62,7 +63,7 @@ class _TodoDialogState extends State<TodoDialog> {
       return;
     }
     final todo = Todo(title: title, desc: desc);
-    FirestoreUtils.addTodo(todo, context);
+    FirestoreUtils.addTodo(todo);
     Navigator.of(context).pop();
     final snackBar = SnackBar(content: Text('To-do added'));
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
