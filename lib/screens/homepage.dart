@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/firestore_utils/paginated_view.dart';
 import 'package:todo_list/screens/addtodo.dart';
-import 'package:todo_list/screens/todolist/todolist.dart';
 
 class HomePage extends StatefulWidget {
   static String key1 = 'false';
