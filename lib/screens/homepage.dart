@@ -3,24 +3,12 @@ import 'package:todo_list/firestore_utils/paginated_view.dart';
 import 'package:todo_list/screens/addtodo.dart';
 
 class HomePage extends StatefulWidget {
-  static String key1 = 'false';
-  static String key2 = 'true';
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
-  List tabs = [
-    PaginatedList(
-      completed: false,
-      key: ValueKey(HomePage.key1),
-    ),
-    PaginatedList(
-      completed: true,
-      key: ValueKey(HomePage.key2),
-    ),
-  ];
   PageController? pageController;
 
   @override
@@ -59,6 +47,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: PageView(
+        physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
           PaginatedList(completed: false),
@@ -68,14 +57,17 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue.shade400,
         child: Icon(Icons.add),
-        onPressed: () => showDialog(
-          context: context,
-          builder: (BuildContext context) => TodoDialog(
-            toAdd: true,
-            todo: null,
-          ),
-          barrierDismissible: true,
-        ),
+        onPressed: () async {
+          await showDialog(
+            context: context,
+            builder: (BuildContext context) => TodoDialog(
+              toAdd: true,
+              todo: null,
+            ),
+            barrierDismissible: true,
+          );
+          setState(() {});
+        },
       ),
     );
   }
