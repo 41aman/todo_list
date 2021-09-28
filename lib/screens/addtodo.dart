@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/firestore_utils/firestore_utils.dart';
-import 'package:todo_list/firestore_utils/paginated_view.dart';
 import 'package:todo_list/models/todo.dart';
 import 'package:todo_list/todo_form/todoform.dart';
 
@@ -56,26 +55,26 @@ class _TodoDialogState extends State<TodoDialog> {
         ),
       );
 
-  void addTodo() {
+  void addTodo() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       print(isValid);
       return;
     }
     final todo = Todo(title: title, desc: desc);
-    FirestoreUtils.addTodo(todo);
+    await FirestoreUtils.addTodo(todo);
     Navigator.of(context).pop();
     final snackBar = SnackBar(content: Text('To-do added'));
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void editTodo() {
+  void editTodo() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) return;
     widget.todo!.setTitle(title);
     widget.todo!.setDescription(desc);
-    FirestoreUtils.editTodo(widget.todo!);
+    await FirestoreUtils.editTodo(widget.todo!);
     Navigator.of(context).pop();
     final snackBar = SnackBar(content: Text('To-do edited'));
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
